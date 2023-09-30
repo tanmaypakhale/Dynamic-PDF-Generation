@@ -2,7 +2,7 @@ const express = require("express");
 const http = require("http");
 const puppeteer = require('puppeteer')
 const app = express();
-
+require("dotenv").config();
 
 
 app.listen(4000, () => {
@@ -10,7 +10,19 @@ app.listen(4000, () => {
 });
 
 async function webPageToPDF(){
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({
+      headless: false,
+      args: [
+        "--disable-setuid-sandbox",
+        "--no-sandbox",
+        "--single-process",
+        "--no-zygote",
+      ],
+      executablePath:
+        process.env.NODE_ENV === "production"
+          ? process.env.PUPPETEER_EXECUTABLE_PATH
+          : puppeteer.executablePath(),
+    });
     const page = await browser.newPage();
 
     await page.goto(`https://www.google.co.in/`, {
