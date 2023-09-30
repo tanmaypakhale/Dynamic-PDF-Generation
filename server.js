@@ -11,7 +11,6 @@ app.listen(4000, () => {
 
 async function webPageToPDF(){
     const browser = await puppeteer.launch({
-      headless: false,
       args: [
         "--disable-setuid-sandbox",
         "--no-sandbox",
