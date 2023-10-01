@@ -11,14 +11,14 @@ app.listen(4000, () => {
 
 async function webPageToPDF(){
     const browser = await puppeteer.launch({
-      headless: 'new',
+      headless: "new",
       args: [
         "--disable-setuid-sandbox",
         "--no-sandbox",
         "--single-process",
         "--no-zygote",
       ],
-      // executablePath: 'google-chrome-unstable',
+      executablePath: "/usr/bin/google-chrome-stable",
     });
     const page = await browser.newPage();
 
